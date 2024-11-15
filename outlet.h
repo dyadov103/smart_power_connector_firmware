@@ -7,17 +7,20 @@ Outlet class definition
 #define outlet_h
 
 #include "current_monitor.h"
+#include <Arduino.h>
 
 class outlet {
   private:
 
-    char *identifier;
+    String identifier;
     int current_mon_pin_num;
     int toggle_pin_num;
     int power_consumption;
     bool status;
 
   public:
+
+    outlet(int current, int toggle, int index); //constructor used to initialize static values
 
     void pin_mode(int mode);
 
@@ -26,7 +29,6 @@ class outlet {
 
     current_monitor get_current();
 
-    char set_identifier(char *id);
     char get_identifier();
 
     bool get_status();
