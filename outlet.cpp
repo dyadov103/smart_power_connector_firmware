@@ -11,11 +11,15 @@ outlet::outlet() {
 outlet::outlet(int current, int toggle, int index) {
   current_mon_pin_num = current;
   toggle_pin_num = toggle;
-
+  identifier = "outlet_" + String(index + 1);
 }
 
-int outlet::get_pin_num() {
+int outlet::get_toggle_pin_num() {
   return toggle_pin_num;
+}
+
+int outlet::get_current_pin_num() {
+  return current_mon_pin_num;
 }
 
 String outlet::get_identifier() {

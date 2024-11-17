@@ -25,8 +25,11 @@ class outlet {
 
     void pin_mode(int mode);
 
-    int get_pin_num();
-    int set_pin_num(int num);
+    int get_toggle_pin_num();
+    int set_toggle_pin_num(int num);
+
+    int get_current_pin_num();
+    int set_current_pin_num(int num);
 
     int get_power();
 

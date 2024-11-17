@@ -1,30 +1,32 @@
 #include "packet.h"
+#include "serial.h"
 
 
 
 
 
 String build_status_packet(outlet *outlets, int size) {
-  String packet = "{";
+  String packet = "\"{";
+  packet += "\"deviceID\": \"";
+  packet += serial;
+  packet += "\",";
   for (int i = 0; i < size; i++) {
-    packet += "{"; 
     packet += "\""; 
     packet += String(outlets[i].get_identifier()); 
-    packet += ":\""; 
-    packet += "{";
+    packet += "\":"; 
+    packet += "\"{";
     packet += "\"power\""; 
     packet += ": \""; 
     packet += String(outlets[i].get_power()); 
     packet += "\"";
-    packet += "}";
     if (i < size - 1) {
-      packet += "},";
+      packet += "}\",";
     }
     else {
-      packet += "}";
+      packet += "}\"";
     }
   }
-  packet += "}";
+  packet += "}\"";
 
 
 
