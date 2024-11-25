@@ -9,7 +9,7 @@ Outlet class definition
 #include <Arduino.h>
 
 class outlet {
-  private:
+  protected:
 
     String identifier;
     int current_mon_pin_num;

@@ -13,7 +13,7 @@ class current_monitor {
     int pin_num;
   public:
 
-    //current_monitor(int pin_number_param);
+    current_monitor(int pin);
 
     int get_current();
 };

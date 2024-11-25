@@ -27,7 +27,7 @@ String outlet::get_identifier() {
 }
 
 int outlet::get_power() {
-  current_monitor cm;
+  current_monitor cm(current_mon_pin_num);
   int power = cm.get_current();
   return power;
 }
