@@ -12,9 +12,9 @@
 
 
 //flag definitions
-#define HEARTEBEAT 0b00000100 //flag to trigger uplink heartbeat status packet. Value 4
-#define SERIAL_STATUS 0b00000010 //For demonstration purposes. Value: 2
-#define SERIAL_HEARTBEAT 0b00000001 //For demonstration purposes. Value 1
+#define STATUS 0b00000100 //flag to trigger uplink heartbeat status packet. Value 4
+#define SERIAL_STATUS_PRETTY 0b00000010 //For demonstration purposes. Value: 2
+#define SERIAL_STATUS 0b00000001 //For demonstration purposes. Value 1
 
 
 #endif
