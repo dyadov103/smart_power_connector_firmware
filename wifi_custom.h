@@ -3,5 +3,6 @@
 
 
 void wifi_connect();
+void check_connection();
 
 #endif

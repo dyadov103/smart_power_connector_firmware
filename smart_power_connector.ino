@@ -8,10 +8,14 @@
 
 outlet outlets[NUM_OUTLETS];
 
+const unsigned long status_interval = STATUS_PACKET_INTERVAL * 1000; //convert s inteval to milliseconds
+
+bool fault = FAULT;
+
 // Usable GPIO pins based on the ESP32 WROOM dev kit pinout
 // The indexes of the arrays correspond to eachother. ex. outlet_1 has toggle pin 15 and adc pin 36
-int usable_toggle_gpios[] = {15, 2, 0, 4, 16, 17, 5, 18, 19, 21, 3, 1, 22}; //TODO: Restructure this. The pinouts are for the wrong board
-int usable_adc_gpios[] = {36, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13}; // Remove pin 2 as  it is the BLUE LED
+int usable_toggle_gpios[] = {23, 22, 1, 3, 21, 19}; //TODO: Implement an 8-to-1 MUX to support up to 8 outlets 
+int usable_adc_gpios[] = {36, 39, 34, 35, 32, 33}; // All ADC2 pins are available
 
 // 8-bit flag
 uint8_t flag = 0;
@@ -22,8 +26,8 @@ void setup() {
   
   pinMode(BLUE_LED, OUTPUT);
 
+
   Serial.begin(9600);
-  Serial.println("Serial Port Initialized");
 
   for (int i = 0; i < NUM_OUTLETS; i++) {
     outlets[i] = outlet(usable_adc_gpios[i], usable_toggle_gpios[i], i);
@@ -37,13 +41,19 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
   keep_alive();
+  check_connection();
+
+
   if (Serial.available() > 0) {
     char input = Serial.read(); //serial monitor input parsing
     if (input == '\n' || input == '\r') {
       return;  // Skip further processing
     }
-    flag = input - '0';
+      flag = input - '0';
+  }
+
 
 
     if(flag & SERIAL_STATUS_PRETTY) { // command to demo the device
@@ -65,8 +75,8 @@ void loop() {
     if (flag & STATUS_PACKET) {
       publish_message(build_status_packet(outlets, NUM_OUTLETS));
     }
-  }
-  flag = 0;
 
+
+  flag = 0;
 
 }

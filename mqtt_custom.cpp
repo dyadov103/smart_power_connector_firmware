@@ -18,15 +18,15 @@ const char* mqtt_password = MQ_PASS;
 
 
 void connect_mqtt() {
+  unsigned long begin_connect_ts = millis();
   client.setBufferSize(512);
   client.setServer(server, port);
   String client_id = String(serial);
-  while (!client.connected()) {
+  while (!client.connected() && (millis() - begin_connect_ts) < TIMEOUT * 1000) {
     if (client.connect(client_id.c_str()), mqtt_username, mqtt_password, NULL, 0, false, NULL, false) { // Use a unique client ID
-      Serial.println("Connected to server");
+      client.subscribe(uplink_topic);
     } 
     else {
-      Serial.print("failed with state ");
       Serial.println(client.state());
       delay(2000); // Retry after 2 seconds
     }
