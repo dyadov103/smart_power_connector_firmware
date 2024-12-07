@@ -69,7 +69,7 @@ void loop() {
     }
     
     if(flag & SERIAL_STATUS) {
-        Serial.println(build_status_packet(outlets, NUM_OUTLETS));
+      Serial.println(build_status_packet(outlets, NUM_OUTLETS));
     }
 
     if (flag & STATUS_PACKET) {
