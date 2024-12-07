@@ -74,7 +74,7 @@ void loop() {
 
   if (flag & STATUS_PACKET) {
     publish_message(build_status_packet(outlets, NUM_OUTLETS));
-    if (Serial.available() > 0) { Serial.println("packet sent to rabbit"); }
+    if (Serial.availableForWrite() > 0) Serial.println("Status Packet Uplinked to RabbitMQ");
   }
 
 
