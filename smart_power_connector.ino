@@ -28,8 +28,14 @@ void setup() {
 
   Serial.begin(9600);
 
+  //init outlet objects
   for (int i = 0; i < NUM_OUTLETS; i++) {
     outlets[i] = outlet(usable_adc_gpios[i], usable_toggle_gpios[i], i);
+  }
+
+  //confgiure outlet gpios
+  for (int i = 0; i < NUM_OUTLETS; i++) {
+    pinMode(outlets[i].get_toggle_pin_num(), OUTPUT);
   }
 
   wifi_connect();
@@ -77,6 +83,15 @@ void loop() {
     if (Serial.availableForWrite() > 0) Serial.println("Status Packet Uplinked to RabbitMQ");
   }
 
+  if (flag & TOGGLE_OUTLET_1) {
+    Serial.println(outlets[0].get_status());
+    if (outlets[0].get_status() < 1) {
+      outlets[0].set_status(1);
+    }
+    else {
+      outlets[0].set_status(0);
+    }
+  }
 
   flag = 0;
 

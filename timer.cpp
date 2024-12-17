@@ -7,7 +7,8 @@ uint8_t check_timer() {
   unsigned long current_time = millis();
 
   if((current_time - last_status) > status_interval) {
-    flag_return = flag_return + STATUS_PACKET;
+    //flag_return = flag_return + STATUS_PACKET;
+    flag_return = flag_return + TOGGLE_OUTLET_1;
     last_status = current_time;
   }
 

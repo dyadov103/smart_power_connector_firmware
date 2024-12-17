@@ -4,7 +4,7 @@
 #define NUM_OUTLETS 6 // max possible outlets 6 until 8-to-1 mux is implemented
 
 // Set status packet interval here in seconds
-#define STATUS_PACKET_INTERVAL 300
+#define STATUS_PACKET_INTERVAL 10
 
 //WIFI Credentials
 #define WIFI_SSID "The crib"
@@ -24,6 +24,7 @@
 #define STATUS_PACKET 0b00000100 //flag to trigger uplink heartbeat status packet. Value 4
 #define SERIAL_STATUS_PRETTY 0b00000010 //For demonstration purposes. Value: 2
 #define SERIAL_STATUS 0b00000001 //For demonstration purposes. Value 1
+#define TOGGLE_OUTLET_1 0b00001000 //Only toggles outlet 1 for testing. Value 8
 
 //Fault Conditions
 #define TIMEOUT 60

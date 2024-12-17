@@ -12,6 +12,7 @@ outlet::outlet(int current, int toggle, int index) {
   current_mon_pin_num = current;
   toggle_pin_num = toggle;
   identifier = "outlet_" + String(index + 1);
+
 }
 
 int outlet::get_toggle_pin_num() {
@@ -30,4 +31,12 @@ int outlet::get_power() {
   current_monitor cm(current_mon_pin_num);
   int power = cm.get_current();
   return power;
+}
+
+void outlet::set_status(bool toggle_value) {
+  digitalWrite(toggle_pin_num, toggle_value);
+}
+
+bool outlet::get_status() {
+  return digitalRead(toggle_pin_num);
 }
