@@ -13,17 +13,18 @@ bool fault = FAULT;
 
 // Usable GPIO pins based on the ESP32 WROOM dev kit pinout
 // The indexes of the arrays correspond to eachother. ex. outlet_1 has toggle pin 15 and adc pin 36
-int usable_toggle_gpios[] = {23, 22, 1, 3, 21, 19}; //TODO: Implement an 8-to-1 MUX to support up to 8 outlets 
+int usable_toggle_gpios[] = {23, 22, 21, 19, 18, 5}; //TODO: Implement an 8-to-1 MUX to support up to 8 outlets 
 int usable_adc_gpios[] = {36, 39, 34, 35, 32, 33}; // All ADC2 pins are available
 
 // 8-bit flag
-uint8_t flag = 0;
+uint16_t flag = 0;
 
 
 void setup() {
   generate_serial();
   
   pinMode(BLUE_LED, OUTPUT);
+  analogReadResolution(12);
 
 
   Serial.begin(9600);
@@ -33,10 +34,6 @@ void setup() {
     outlets[i] = outlet(usable_adc_gpios[i], usable_toggle_gpios[i], i);
   }
 
-  //confgiure outlet gpios
-  for (int i = 0; i < NUM_OUTLETS; i++) {
-    pinMode(outlets[i].get_toggle_pin_num(), OUTPUT);
-  }
 
   wifi_connect();
   connect_mqtt();
@@ -53,13 +50,12 @@ void loop() {
   flag += check_timer();
 
 
-  if (Serial.available() > 0) {
-    char input = Serial.read(); //serial monitor input parsing
-    if (input == '\n' || input == '\r') {
-      return;  // Skip further processing
+if (Serial.available() > 0) {
+    int input = Serial.parseInt(); 
+    if (input > 0) {              
+        flag += input;             
     }
-      flag += input - '0';
-  }
+}
 
 
   if(flag & SERIAL_STATUS_PRETTY) { // command to demo the device
@@ -91,6 +87,16 @@ void loop() {
     else {
       outlets[0].set_status(0);
     }
+  }
+
+  if (flag & CAILIBRATE_OUTLETS) {
+    Serial.println("Calibrating Outlets");
+    for(int i = 0; i < NUM_OUTLETS; i++) {
+      outlets[i].set_status(1);
+      delay(1);
+      outlets[i].calibrate_outlet();
+    }
+    Serial.println("Finished Calibration");
   }
 
   flag = 0;

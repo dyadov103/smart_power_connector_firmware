@@ -7,10 +7,11 @@ Outlet class definition
 #define outlet_h
 
 #include <Arduino.h>
+#include "current_monitor.h"
 
 class outlet {
   protected:
-
+    current_monitor cm;
     String identifier;
     int current_mon_pin_num;
     int toggle_pin_num;
@@ -31,12 +32,14 @@ class outlet {
     int get_current_pin_num();
     int set_current_pin_num(int num);
 
-    int get_power();
+    float get_power();
 
     String get_identifier();
 
     bool get_status();
     void set_status(bool toggle_value);
+
+    void calibrate_outlet();
 
 };
 

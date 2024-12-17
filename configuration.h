@@ -4,7 +4,7 @@
 #define NUM_OUTLETS 6 // max possible outlets 6 until 8-to-1 mux is implemented
 
 // Set status packet interval here in seconds
-#define STATUS_PACKET_INTERVAL 10
+#define STATUS_PACKET_INTERVAL 300
 
 //WIFI Credentials
 #define WIFI_SSID "The crib"
@@ -25,16 +25,18 @@
 #define SERIAL_STATUS_PRETTY 0b00000010 //For demonstration purposes. Value: 2
 #define SERIAL_STATUS 0b00000001 //For demonstration purposes. Value 1
 #define TOGGLE_OUTLET_1 0b00001000 //Only toggles outlet 1 for testing. Value 8
+#define CAILIBRATE_OUTLETS 0b00010000 //Calibrates the ACS712 Current Sensors. Value 16
 
 //Fault Conditions
 #define TIMEOUT 60
 #define FAULT false
 
 //Current Params
-#define ADC_RESOLUTION 4096.0 // 12-bit ADC
-#define VOLTAGE_REFERENCE 5.0 // Reference voltage in volts
-#define CURRENT_SENSITIVITY 0.185 // ACS712 sensitivity in V/A
+#define ADC_RESOLUTION 4095.0 // 12-bit ADC
+#define VOLTAGE_REFERENCE 5 // Reference voltage in volts
+#define CURRENT_SENSITIVITY 0.066// ACS712 sensitivity in V/A. 0.066 for the 30A module
 #define ZERO_CURRENT 2.5
+#define NUM_SAMPLES 500 //Defines the number of samples that will be taken to determine AC current values
 
 
 #endif

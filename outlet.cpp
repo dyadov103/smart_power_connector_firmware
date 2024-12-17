@@ -12,6 +12,9 @@ outlet::outlet(int current, int toggle, int index) {
   current_mon_pin_num = current;
   toggle_pin_num = toggle;
   identifier = "outlet_" + String(index + 1);
+  
+  cm.set_pin_num(current);
+  pinMode(toggle, OUTPUT);
 
 }
 
@@ -27,10 +30,13 @@ String outlet::get_identifier() {
   return identifier;
 }
 
-int outlet::get_power() {
-  current_monitor cm(current_mon_pin_num);
-  int power = cm.get_current();
+float outlet::get_power() {
+  float power = cm.get_current();
   return power;
+}
+
+void outlet::calibrate_outlet() {
+  cm.calibrate_zero_current();
 }
 
 void outlet::set_status(bool toggle_value) {

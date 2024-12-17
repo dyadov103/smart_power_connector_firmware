@@ -11,11 +11,16 @@ class current_monitor {
   private:
     int current_consumption;
     int pin_num;
+    float zero_current;
   public:
 
+    current_monitor();
     current_monitor(int pin);
 
-    int get_current();
+    void set_pin_num(int pin);
+
+    float get_current();
+    void calibrate_zero_current();
 };
 
 
