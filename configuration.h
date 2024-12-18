@@ -32,7 +32,7 @@
 #define FAULT false
 
 //Current Params
-#define ADC_RESOLUTION 4095.0 // 12-bit ADC
+#define ADC_RESOLUTION 4096.0 // 12-bit ADC
 #define VOLTAGE_REFERENCE 5 // Reference voltage in volts
 #define CURRENT_SENSITIVITY 0.066// ACS712 sensitivity in V/A. 0.066 for the 30A module
 #define ZERO_CURRENT 2.5
