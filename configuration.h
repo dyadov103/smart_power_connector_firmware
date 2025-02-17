@@ -11,7 +11,7 @@
 #define WIFI_PASSWORD "twood2024"
 
 //MQTT Credentials
-#define SERVER "34.238.120.227"
+#define SERVER "44.212.28.132"
 #define PORT 1883
 #define USER "smartpowerconnector"
 #define MQ_PASS "seniordesign2024"
