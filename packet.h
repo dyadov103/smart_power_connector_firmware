@@ -5,6 +5,7 @@
 #include "outlet.h"
 
 String build_status_packet(outlet *outlets, int size);
+String decode_request(const String &json, const String &key);
 
 
 #endif

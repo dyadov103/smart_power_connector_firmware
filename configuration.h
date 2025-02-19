@@ -16,6 +16,7 @@
 #define USER "smartpowerconnector"
 #define MQ_PASS "seniordesign2024"
 #define MQ_UPLINK_TOPIC "outlet/uplink"
+#define MQ_DOWNLINK_TOPIC "outlet/downlink"
 
 //Builtin LED status indicator
 #define BLUE_LED 2
@@ -24,7 +25,7 @@
 #define STATUS_PACKET 0b00000100 //flag to trigger uplink heartbeat status packet. Value 4
 #define SERIAL_STATUS_PRETTY 0b00000010 //For demonstration purposes. Value: 2
 #define SERIAL_STATUS 0b00000001 //For demonstration purposes. Value 1
-#define TOGGLE_OUTLET_1 0b00001000 //Only toggles outlet 1 for testing. Value 8
+#define TOGGLE_OUTLET 0b00001000 //Only toggles outlet 1 for testing. Value 8
 #define CAILIBRATE_OUTLETS 0b00010000 //Calibrates the ACS712 Current Sensors. Value 16
 
 //Fault Conditions

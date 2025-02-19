@@ -38,6 +38,7 @@ void setup() {
   wifi_connect();
   connect_mqtt();
 
+  publish_message(build_status_packet(outlets, NUM_OUTLETS));
 }
 
 
@@ -47,7 +48,7 @@ void loop() {
   keep_alive();
   check_connection();
 
-  flag += check_timer();
+  flag += check_timer() + downlink_flag;
 
 
 if (Serial.available() > 0) {
@@ -79,14 +80,16 @@ if (Serial.available() > 0) {
     if (Serial.availableForWrite() > 0) Serial.println("Status Packet Uplinked to RabbitMQ");
   }
 
-  if (flag & TOGGLE_OUTLET_1) {
-    Serial.println(outlets[0].get_status());
-    if (outlets[0].get_status() < 1) {
-      outlets[0].set_status(1);
+  if (flag & TOGGLE_OUTLET) {
+    String key_value = "";
+    for(int i = 0; i < NUM_OUTLETS; i++) {
+      key_value = decode_request(last_packet, outlets[i].get_identifier());
+      if(key_value != "") {
+          outlets[i].set_status(key_value.toInt());
+      }
     }
-    else {
-      outlets[0].set_status(0);
-    }
+    downlink_flag = 0;
+    last_packet = "";
   }
 
   if (flag & CAILIBRATE_OUTLETS) {
