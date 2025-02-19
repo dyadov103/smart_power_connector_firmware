@@ -88,6 +88,9 @@ if (Serial.available() > 0) {
           outlets[i].set_status(key_value.toInt());
       }
     }
+    if (Serial.availableForWrite() > 0) {
+      Serial.println("Downlink request handled for: " + last_packet + " Clearing queue...");
+    } 
     downlink_flag = 0;
     last_packet = "";
   }
