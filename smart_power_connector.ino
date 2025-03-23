@@ -93,6 +93,8 @@ if (Serial.available() > 0) {
     } 
     downlink_flag = 0;
     last_packet = "";
+    publish_message(build_status_packet(outlets, NUM_OUTLETS));
+    if (Serial.availableForWrite() > 0) Serial.println("Status Packet Uplinked to RabbitMQ, in response to downlink req");
   }
 
   if (flag & CAILIBRATE_OUTLETS) {

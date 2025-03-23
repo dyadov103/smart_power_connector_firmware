@@ -39,6 +39,10 @@ String build_status_packet(outlet *outlets, int size) {
     packet += String(outlets[i].get_identifier()); 
     packet += "\":"; 
     packet += "{";
+    packet += "\"status\"";
+    packet += ": ";
+    packet += String(outlets[i].get_status());
+    packet += ",";
     packet += "\"power\""; 
     packet += ": "; 
     packet += String(outlets[i].get_power()); 

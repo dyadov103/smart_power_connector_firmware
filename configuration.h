@@ -1,7 +1,7 @@
 #ifndef config_h
 #define config_h
 
-#define NUM_OUTLETS 6 // max possible outlets 6 until 8-to-1 mux is implemented
+#define NUM_OUTLETS 1 // max possible outlets 6 until 8-to-1 mux is implemented
 
 // Set status packet interval here in seconds
 #define STATUS_PACKET_INTERVAL 300
@@ -25,7 +25,7 @@
 #define STATUS_PACKET 0b00000100 //flag to trigger uplink heartbeat status packet. Value 4
 #define SERIAL_STATUS_PRETTY 0b00000010 //For demonstration purposes. Value: 2
 #define SERIAL_STATUS 0b00000001 //For demonstration purposes. Value 1
-#define TOGGLE_OUTLET 0b00001000 //Only toggles outlet 1 for testing. Value 8
+#define TOGGLE_OUTLET 0b00001000 //Flag to trigger uplink cycle, current buffer size is 1 message. Value 8
 #define CAILIBRATE_OUTLETS 0b00010000 //Calibrates the ACS712 Current Sensors. Value 16
 
 //Fault Conditions
