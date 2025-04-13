@@ -16,8 +16,8 @@ bool fault = FAULT;
 int usable_toggle_gpios[] = {23, 22, 21, 19, 18, 5}; //TODO: Implement an 8-to-1 MUX to support up to 8 outlets 
 int usable_adc_gpios[] = {36, 39, 34, 35, 32, 33}; // All ADC2 pins are available
 
-// 8-bit flag
-uint16_t flag = 0;
+// flag is 8 bits but stored in 16 bit due to overflow
+uint16_t flag = 16; // set flag to 16 on boot to perform outlet calibration
 
 
 void setup() {
@@ -89,7 +89,7 @@ if (Serial.available() > 0) {
       }
     }
     if (Serial.availableForWrite() > 0) {
-      Serial.println("Downlink request handled for: " + last_packet + " Clearing queue...");
+      Serial.println("Downlink request handled for: " + last_packet);
     } 
     downlink_flag = 0;
     last_packet = "";
@@ -99,8 +99,9 @@ if (Serial.available() > 0) {
 
   if (flag & CAILIBRATE_OUTLETS) {
     Serial.println("Calibrating Outlets");
+
     for(int i = 0; i < NUM_OUTLETS; i++) {
-      outlets[i].set_status(1);
+      outlets[i].set_status(0);
       delay(1);
       outlets[i].calibrate_outlet();
     }

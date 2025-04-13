@@ -32,9 +32,14 @@ String outlet::get_identifier() {
 
 
 float outlet::get_power() {
-  // float power = cm.get_current();
-  return random(120, 3600 + 1);
-  //return power;
+  float power = cm.get_current();
+
+  if (get_status() == 0 ) {
+    return 0.0;
+  }
+
+  //return random(120, 3600 + 1);
+  return power * 120;
 }
 
 void outlet::calibrate_outlet() {

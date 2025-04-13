@@ -1,7 +1,7 @@
 #ifndef config_h
 #define config_h
 
-#define NUM_OUTLETS 1 // max possible outlets 6 until 8-to-1 mux is implemented
+#define NUM_OUTLETS 4 // max possible outlets 6 until 8-to-1 mux is implemented
 
 // Set status packet interval here in seconds
 #define STATUS_PACKET_INTERVAL 300
@@ -33,11 +33,11 @@
 #define FAULT false
 
 //Current Params
-#define ADC_RESOLUTION 4096.0 // 12-bit ADC
-#define VOLTAGE_REFERENCE 5 // Reference voltage in volts
-#define CURRENT_SENSITIVITY 0.066// ACS712 sensitivity in V/A. 0.066 for the 30A module
-#define ZERO_CURRENT 2.5
-#define NUM_SAMPLES 500 //Defines the number of samples that will be taken to determine AC current values
+#define ADC_RESOLUTION 1023.0 // 
+#define VOLTAGE_REFERENCE 3.3 // Reference voltage in volts
+#define CURRENT_SENSITIVITY 0.185// ACS712 sensitivity in V/A. 0.066 for the 30A module. 0.185 for the 5A module
+#define ZERO_CURRENT 1.65
+#define NUM_SAMPLES 1000 //Defines the number of samples that will be taken to determine AC current values
 
 
 #endif
