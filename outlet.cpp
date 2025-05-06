@@ -46,6 +46,10 @@ void outlet::calibrate_outlet() {
   cm.calibrate_zero_current();
 }
 
+void outlet::calibrate_error() {
+  cm.error_factor_calibration();
+}
+
 void outlet::set_status(bool toggle_value) {
   digitalWrite(toggle_pin_num, toggle_value);
 }

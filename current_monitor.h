@@ -12,6 +12,7 @@ class current_monitor {
     int current_consumption;
     int pin_num;
     float zero_current;
+    float calibration_factor = 1.0;
   public:
 
     current_monitor();
@@ -21,6 +22,7 @@ class current_monitor {
 
     float get_current();
     void calibrate_zero_current();
+    void error_factor_calibration();
 };
 
 

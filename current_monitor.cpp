@@ -18,17 +18,22 @@ void current_monitor::set_pin_num(int pin) {
 
 float current_monitor::get_current() {
   float sum_squared = 0;
+  
+
+
   for (int i = 0; i < NUM_SAMPLES; i++) {
-    int mV = analogReadMilliVolts(pin_num); // Reads millivolts directly
-    float voltage_out = mV / 1000.0;     
-    float voltage_diff = voltage_out - zero_current; // zero_current
+    int mV = analogReadMilliVolts(pin_num); // Already accounts for 3.3V Vref
+    float voltage = mV / 1000.0;
+
+    float voltage_diff = voltage - zero_current;
     sum_squared += voltage_diff * voltage_diff;
-    delay(1);
+
+    delayMicroseconds(500); // Tight sampling for smooth signal
   }
 
   float voltage_rms = sqrt(sum_squared / NUM_SAMPLES);
-  float current_rms = voltage_rms / CURRENT_SENSITIVITY;
-  
+  float current_rms = (voltage_rms / CURRENT_SENSITIVITY) * calibration_factor;
+
   return current_rms;
 }
 
@@ -38,10 +43,28 @@ void current_monitor::calibrate_zero_current() {
     int mV = analogReadMilliVolts(pin_num);
     float voltage = mV / 1000.0;
     sum += voltage;
-    delayMicroseconds(500);  // Small delay between samples
+    delayMicroseconds(500);
   }
-  zero_current = sum / NUM_SAMPLES;  // Return average voltage
-  Serial.println(zero_current);
+
+  zero_current = sum / NUM_SAMPLES;
+  Serial.print("Zero current (V): ");
+  Serial.println(zero_current, 4);
+
+}
+
+void current_monitor::error_factor_calibration() {
+  Serial.println("Beginning error factor calculation");
+  float expected_current = 0.035;
+  float measured_current = get_current();
+  Serial.println(measured_current);
+  if (measured_current == 0.0) {
+    calibration_factor = 1.0;
+    Serial.println("Measured current is 0. Failed to calibrate");
+    return;
+  }
+  calibration_factor = expected_current / measured_current;
+  Serial.print("Calibration factor: ");
+  Serial.println(calibration_factor, 4);
 }
 
 

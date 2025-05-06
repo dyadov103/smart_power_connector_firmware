@@ -40,6 +40,7 @@ class outlet {
     void set_status(bool toggle_value);
 
     void calibrate_outlet();
+    void calibrate_error();
 
 };
 

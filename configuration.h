@@ -7,8 +7,8 @@
 #define STATUS_PACKET_INTERVAL 300
 
 //WIFI Credentials
-#define WIFI_SSID "The crib"
-#define WIFI_PASSWORD "twood2024"
+#define WIFI_SSID "Daniel"
+#define WIFI_PASSWORD "12345678"
 
 //MQTT Credentials
 #define SERVER "44.212.28.132"
@@ -38,6 +38,7 @@
 #define CURRENT_SENSITIVITY 0.185// ACS712 sensitivity in V/A. 0.066 for the 30A module. 0.185 for the 5A module
 #define ZERO_CURRENT 1.65
 #define NUM_SAMPLES 1000 //Defines the number of samples that will be taken to determine AC current values
+#define EXPECTED_CURRENT 0.035 // Defines the expected current for led 3.5W lamp
 
 
 #endif

@@ -102,8 +102,14 @@ if (Serial.available() > 0) {
 
     for(int i = 0; i < NUM_OUTLETS; i++) {
       outlets[i].set_status(0);
-      delay(1);
+      delay(10);
       outlets[i].calibrate_outlet();
+      delay(10);
+      outlets[i].set_status(1);
+      delay(5000); // wait for current to change
+      outlets[i].calibrate_error();
+      delay(10);
+      outlets[i].set_status(0);
     }
     Serial.println("Finished Calibration");
   }
